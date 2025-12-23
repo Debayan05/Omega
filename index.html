@@ -4,23 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Omega Apartment | Resident App</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
             --primary: #0f172a;
             --accent: #d4af37;
-            --bg-light: #f1f5f9;
+            --secondary: #1e3a8a;
+            --bg-light: #f8fafc;
             --card-bg: #ffffff;
             --text-main: #1e293b;
             --text-sub: #64748b;
-            --nav-bg: #ffffff;
+            --success: #16a34a;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
 
         * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
+            margin: 0; padding: 0; box-sizing: border-box; 
             font-family: 'Inter', sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
@@ -28,249 +28,299 @@
         body { 
             background-color: var(--bg-light); 
             color: var(--text-main);
-            padding-bottom: 80px; /* Space for bottom nav */
+            padding-bottom: 90px;
         }
 
-        /* --- APP HEADER --- */
-        .app-header {
-            background: var(--primary);
-            padding: 1.5rem 1rem;
+        h1, h2, h3, .banner-title { font-family: 'Poppins', sans-serif; }
+
+        /* --- ATTRACTIVE BANNER --- */
+        .app-banner {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #334155 100%);
+            padding: 2.5rem 1.5rem;
             color: white;
             text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom-left-radius: 20px;
-            border-bottom-right-radius: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-bottom-left-radius: 35px;
+            border-bottom-right-radius: 35px;
+            box-shadow: 0 15px 30px rgba(15, 23, 42, 0.3);
+            position: relative;
+        }
+        .banner-title { font-size: 1.6rem; color: var(--accent); font-weight: 800; letter-spacing: 1px; margin-bottom: 5px; }
+        .banner-address { font-size: 0.9rem; opacity: 0.9; font-weight: 500; }
+
+        /* --- NOTICE SCROLLER --- */
+        .notice-scroller {
+            background: #fffbeb;
+            border-bottom: 1px solid #fef3c7;
+            padding: 8px 0;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #92400e;
         }
 
-        .app-header h1 { font-size: 1.2rem; letter-spacing: 1px; color: var(--accent); }
+        /* --- WELCOME NOTE --- */
+        .welcome-section {
+            padding: 20px 20px 10px 20px;
+        }
+        .welcome-title { font-size: 1.3rem; font-weight: 700; color: var(--primary); }
+        .current-time { font-size: 0.85rem; color: var(--text-sub); font-weight: 500; }
 
         /* --- SCREEN MANAGEMENT --- */
-        .app-screen {
-            display: none;
-            padding: 20px 15px;
-            animation: fadeIn 0.3s ease-in-out;
-        }
-
+        .app-screen { display: none; padding: 10px 16px; animation: fadeIn 0.4s ease; }
         .app-screen.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* --- QUICK LINKS GRID --- */
+        .section-header { font-size: 1.1rem; margin: 20px 0 15px 5px; color: var(--primary); font-weight: 700; display: flex; align-items: center; }
+        .section-header::after { content: ""; flex: 1; height: 2px; background: #e2e8f0; margin-left: 15px; }
+
+        .quick-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr);
+            gap: 15px; margin-bottom: 25px;
         }
-
-        /* --- UI COMPONENTS --- */
-        .card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        .link-card {
+            background: var(--card-bg); padding: 22px 15px; border-radius: 24px;
+            text-align: center; box-shadow: var(--shadow); transition: 0.3s;
         }
+        .link-card i { font-size: 2rem; color: var(--accent); margin-bottom: 12px; display: block; }
+        .link-card span { font-size: 0.85rem; font-weight: 700; color: var(--primary); }
 
-        .section-title { font-size: 1.3rem; margin-bottom: 15px; color: var(--primary); font-weight: 700; }
+        /* --- AMENITIES GRAPHICAL LIST --- */
+        .amenity-row {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;
+        }
+        .amenity-box {
+            background: white; border-radius: 20px; padding: 15px;
+            text-align: center; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border-top: 3px solid var(--accent);
+        }
+        .amenity-box i { font-size: 1.5rem; color: var(--secondary); margin-bottom: 8px; display: block; }
+        .amenity-box h4 { font-size: 0.85rem; color: var(--primary); margin-bottom: 4px; }
+        .amenity-box p { font-size: 0.7rem; color: var(--text-sub); line-height: 1.2; }
+
+        /* --- COMMITTEE & CONTACT CARDS --- */
+        .contact-group-title { font-size: 0.9rem; color: var(--secondary); font-weight: 700; text-transform: uppercase; margin: 15px 0 10px 5px; }
+        .item-card {
+            background: white; border-radius: 18px; padding: 15px 20px;
+            margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;
+            box-shadow: var(--shadow);
+        }
+        .item-info strong { font-size: 0.95rem; color: var(--primary); display: block; }
+        .item-info span { font-size: 0.8rem; color: var(--text-sub); font-weight: 500; }
+        .item-info .role-tag { color: var(--accent); font-weight: 700; text-transform: uppercase; font-size: 0.75rem; }
+        
+        .call-action {
+            color: var(--success); font-size: 1.3rem; padding: 5px;
+        }
+        .phone-display { font-size: 0.85rem; color: var(--success); font-weight: 600; margin-top: 2px; display: block; }
 
         /* --- BOTTOM NAVIGATION --- */
         .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 70px;
-            background: var(--nav-bg);
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            border-top: 1px solid #e2e8f0;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
-            z-index: 1000;
+            position: fixed; bottom: 0; left: 0; right: 0; height: 75px;
+            background: white; display: flex; justify-content: space-around; align-items: center;
+            border-top: 1px solid #e2e8f0; z-index: 1000; padding-bottom: 10px;
         }
-
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: var(--text-sub);
-            font-size: 0.7rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .nav-item i { font-size: 1.4rem; margin-bottom: 4px; }
-
-        .nav-item.active { color: var(--secondary-accent, #1e3a8a); }
+        .nav-item { color: #94a3b8; text-align: center; font-size: 0.65rem; font-weight: 700; flex: 1; }
+        .nav-item i { font-size: 1.3rem; margin-bottom: 4px; display: block; }
+        .nav-item.active { color: var(--primary); }
         .nav-item.active i { color: var(--accent); }
-
-        /* --- SPECIFIC APP VIEWS --- */
-        .quick-actions {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-
-        .action-btn {
-            background: var(--primary);
-            color: white;
-            padding: 15px;
-            border-radius: 12px;
-            text-align: center;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .contact-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #f1f5f9;
-        }
-
-        .call-icon {
-            background: #dcfce7;
-            color: #166534;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Floating Complaint Button */
-        .fab {
-            position: fixed;
-            bottom: 85px;
-            right: 20px;
-            background: #25D366;
-            color: white;
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
-            z-index: 99;
-        }
     </style>
 </head>
 <body>
 
-    <div class="app-header">
-        <h1>OMEGA APARTMENT</h1>
-        <p style="font-size: 0.8rem; opacity: 0.8;">Dum Dum, Kolkata</p>
+    <div class="app-banner">
+        <h1 class="banner-title">OMEGA APARTMENT</h1>
+        <p class="banner-address">46, Dum Dum Road, Kolkata 700074</p>
+    </div>
+
+    <div class="notice-scroller">
+        <marquee scrollamount="4">
+            Welcome to the Resident Portal • Maintenance due: 15th Dec • Water tank cleaning: Sunday • Stay Safe!
+        </marquee>
+    </div>
+
+    <div class="welcome-section">
+        <h2 class="welcome-title">Welcome Resident!</h2>
+        <div id="date-time" class="current-time">Loading...</div>
     </div>
 
     <div id="home" class="app-screen active">
-        <div class="card" style="background: linear-gradient(135deg, #0f172a, #1e3a8a); color: white;">
-            <h3>Welcome, Resident</h3>
-            <p style="font-size: 0.8rem; opacity: 0.9;">Building Plan Sanctioned: 1994</p>
-            <div style="margin-top: 15px; background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px;">
-                <small>Notice Board:</small>
-                <marquee scrollamount="3">Water tank cleaning scheduled for next Sunday.</marquee>
+        <h3 class="section-header">Quick Links</h3>
+        <div class="quick-grid">
+            <div class="link-card" onclick="switchScreen('notices', this)">
+                <i class="fas fa-bullhorn"></i><span>Notice Board</span>
+            </div>
+            <div class="link-card" onclick="switchScreen('helpdesk', this)">
+                <i class="fas fa-headset"></i><span>Help Desk</span>
+            </div>
+            <div class="link-card" onclick="window.open('https://docs.google.com/spreadsheets/d/16NPWEmV_XtQkTtBJuC-XLTXwsURcHC5dch1R1_j9tAM/edit?usp=sharing')">
+                <i class="fas fa-file-invoice-dollar"></i><span>Maintenance</span>
+            </div>
+            <div class="link-card" onclick="switchScreen('gallery', this)">
+                <i class="fas fa-images"></i><span>Gallery</span>
             </div>
         </div>
 
-        <h2 class="section-title">Quick Services</h2>
-        <div class="quick-actions">
-            <div class="action-btn" onclick="switchScreen('portal')"><i class="fas fa-file-invoice-dollar"></i><br>Maintenance</div>
-            <div class="action-btn" onclick="switchScreen('contacts')"><i class="fas fa-tools"></i><br>Repair Desk</div>
-            <div class="action-btn" onclick="switchScreen('portal')"><i class="fas fa-folder-open"></i><br>Archives</div>
-            <div class="action-btn" onclick="switchScreen('location')"><i class="fas fa-map-marker-alt"></i><br>Location</div>
+        <h3 class="section-header">Apartment Amenities</h3>
+        <div class="amenity-row">
+            <div class="amenity-box">
+                <i class="fas fa-building"></i>
+                <h4>G+5 Structure</h4>
+                <p>Premium building with modern lift.</p>
+            </div>
+            <div class="amenity-box">
+                <i class="fas fa-shield-alt"></i>
+                <h4>24/7 Security</h4>
+                <p>CCTV & Guarded premises.</p>
+            </div>
+            <div class="amenity-box">
+                <i class="fas fa-tint"></i>
+                <h4>Dual Water</h4>
+                <p>Borewell & Municipality supply.</p>
+            </div>
+            <div class="amenity-box">
+                <i class="fas fa-motorcycle"></i>
+                <h4>Bike Parking</h4>
+                <p>Dedicated safe parking area.</p>
+            </div>
+        </div>
+
+        <h3 class="section-header">Key Committee Members</h3>
+        <div class="item-card">
+            <div class="item-info"><strong>Mr. R. P. Ghosh</strong><span class="role-tag">President</span></div>
+        </div>
+        <div class="item-card">
+            <div class="item-info"><strong>Dr. Santanu Bose</strong><span class="role-tag">Vice President</span></div>
+        </div>
+        <div class="item-card">
+            <div class="item-info"><strong>Mr. Bhaskar Roychowdhury</strong><span class="role-tag">Secretary</span></div>
+        </div>
+        <div class="item-card">
+            <div class="item-info"><strong>Mr. Patha Pratim Biswas</strong><span class="role-tag">Asst. Secretary</span></div>
+        </div>
+        <div class="item-card">
+            <div class="item-info"><strong>Mr. Debayan Ganguly</strong><span class="role-tag">Treasurer</span></div>
+        </div>
+        <div class="item-card">
+            <div class="item-info"><strong>Mr. Partha Gupta</strong><span class="role-tag">Auditor</span></div>
+        </div>
+        <div class="item-card">
+            <div class="item-info"><strong>Mr. Anal Kumar Baidya</strong><span class="role-tag">Advisor</span></div>
         </div>
     </div>
 
-    <div id="contacts" class="app-screen">
-        <h2 class="section-title">Emergency & Maintenance</h2>
-        <div class="card">
-            <h4>Internal Staff</h4>
-            <div class="contact-row">
-                <div><strong>Security</strong><br><small>Susanta Dutta</small></div>
-                <a href="tel:7449703179" class="call-icon"><i class="fas fa-phone"></i></a>
-            </div>
-            <div class="contact-row">
-                <div><strong>Plumbing</strong><br><small>Ranjit Pal</small></div>
-                <a href="tel:9874920151" class="call-icon"><i class="fas fa-phone"></i></a>
-            </div>
-            <div class="contact-row">
-                <div><strong>Lift Service</strong><br><small>Goutam Paul</small></div>
-                <a href="tel:9874311399" class="call-icon"><i class="fas fa-phone"></i></a>
-            </div>
+    <div id="helpdesk" class="app-screen">
+        <h3 class="section-header">Important Contacts</h3>
+        
+        <div class="contact-group-title">Maintenance Vendors</div>
+        <div class="item-card">
+            <div class="item-info"><strong>Mr. Susanta Dutta</strong><span>Security</span><span class="phone-display">7449703179</span></div>
+            <a href="tel:7449703179" class="call-action"><i class="fas fa-phone-alt"></i></a>
+        </div>
+        <div class="item-card">
+            <div class="item-info"><strong>Mr. Ranjit Pal</strong><span>Plumbing</span><span class="phone-display">9874920151</span></div>
+            <a href="tel:9874920151" class="call-action"><i class="fas fa-phone-alt"></i></a>
+        </div>
+        <div class="item-card">
+            <div class="item-info"><strong>Mr. Asit Roy</strong><span>Electricals</span><span class="phone-display">8697213850</span></div>
+            <a href="tel:8697213850" class="call-action"><i class="fas fa-phone-alt"></i></a>
+        </div>
+        <div class="item-card">
+            <div class="item-info"><strong>Mr. Goutam Paul</strong><span>Lift Service</span><span class="phone-display">9874311399</span></div>
+            <a href="tel:9874311399" class="call-action"><i class="fas fa-phone-alt"></i></a>
+        </div>
+        <div class="item-card">
+            <div class="item-info"><strong>Mr. Baldeb Das</strong><span>Cleaning</span><span class="phone-display">9163438623</span></div>
+            <a href="tel:9163438623" class="call-action"><i class="fas fa-phone-alt"></i></a>
+        </div>
+
+        <div class="contact-group-title">Medical & Emergency</div>
+        <div class="item-card">
+            <div class="item-info"><strong>ILS Hospitals</strong><span>Dum Dum</span><span class="phone-display">033 4031 5001</span></div>
+            <a href="tel:03340315001" class="call-action"><i class="fas fa-ambulance"></i></a>
+        </div>
+        <div class="item-card">
+            <div class="item-info"><strong>R.S. Ambulance</strong><span>Emergency</span><span class="phone-display">6290099508</span></div>
+            <a href="tel:6290099508" class="call-action"><i class="fas fa-ambulance"></i></a>
+        </div>
+        <div class="item-card">
+            <div class="item-info"><strong>Nagerbazar Police</strong><span>Station</span><span class="phone-display">033 2549 9375</span></div>
+            <a href="tel:03325499375" class="call-action"><i class="fas fa-shield-alt"></i></a>
         </div>
     </div>
 
-    <div id="portal" class="app-screen">
-        <h2 class="section-title">Resident Portal</h2>
-        <div class="card">
-            <h4 style="margin-bottom:10px;"><i class="fas fa-file-excel" style="color: green;"></i> Finance Tracker</h4>
-            <p style="font-size: 0.9rem; color: var(--text-sub);">View live maintenance payment status.</p>
-            <a href="#" class="action-btn" style="display: block; margin-top: 10px; background: #059669;">Open Google Sheets</a>
+    <div id="archive" class="app-screen">
+        <h3 class="section-header">Apartment Archive</h3>
+        <div class="item-card">
+            <div class="item-info"><strong>Establishment Year</strong><span>1994</span></div>
         </div>
-        <div class="card">
-            <h4><i class="fas fa-link"></i> Quick Links</h4>
-            <div class="contact-row" onclick="window.open('https://holdingtax.co.in/')">
-                <span>Property Tax Online</span>
-                <i class="fas fa-chevron-right"></i>
-            </div>
+        <div class="item-card">
+            <div class="item-info"><strong>Building Plan Sanctioned</strong><span>No. 621 (12.01.1994)</span></div>
+        </div>
+        <div class="item-card" style="flex-direction: column; align-items: flex-start; gap: 10px;">
+            <strong>History</strong>
+            <p style="font-size: 0.8rem; color: var(--text-sub);">Developed via agreement between Mr. Sailesh Prasad Mondal and M/s. Eiffel Construction Pvt. Ltd.</p>
         </div>
     </div>
 
-    <div id="location" class="app-screen">
-        <h2 class="section-title">Find Us</h2>
-        <div class="card">
-            <p style="margin-bottom: 10px;">66, Dum Dum Road, Kolkata 74</p>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3683.433465714088!2d88.4194!3d22.6186!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjLCsDM3JzA3LjAiTiA4OMKwMjUnMDkuOCJF!5e0!3m2!1sen!2sin!4v1639038472834!5m2!1sen!2sin" width="100%" height="250" style="border:0; border-radius: 12px;"></iframe>
+    <div id="notices" class="app-screen">
+        <h3 class="section-header">Notice Board</h3>
+        <div class="item-card" style="border-left: 5px solid var(--accent);">
+            <div class="item-info"><strong>Maintenance Reminder</strong><span>Dec 15: Monthly dues approaching.</span></div>
+        </div>
+        <div class="item-card" style="border-left: 5px solid var(--accent);">
+            <div class="item-info"><strong>Water Tank Cleaning</strong><span>Dec 10: Scheduled for next Sunday.</span></div>
+        </div>
+    </div>
+
+    <div id="gallery" class="app-screen">
+        <h3 class="section-header">Community Gallery</h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <img src="https://via.placeholder.com/200?text=Building" style="width:100%; border-radius:15px;">
+            <img src="https://via.placeholder.com/200?text=Durga+Puja" style="width:100%; border-radius:15px;">
+            <img src="https://via.placeholder.com/200?text=Common+Area" style="width:100%; border-radius:15px;">
+            <img src="https://via.placeholder.com/200?text=CCTV" style="width:100%; border-radius:15px;">
         </div>
     </div>
 
     <div class="bottom-nav">
         <div class="nav-item active" onclick="switchScreen('home', this)">
-            <i class="fas fa-home"></i>
-            <span>Home</span>
+            <i class="fas fa-home"></i><span>Home</span>
         </div>
-        <div class="nav-item" onclick="switchScreen('contacts', this)">
-            <i class="fas fa-phone-alt"></i>
-            <span>Contacts</span>
+        <div class="nav-item" onclick="switchScreen('notices', this)">
+            <i class="fas fa-bullhorn"></i><span>Notices</span>
         </div>
-        <div class="nav-item" onclick="switchScreen('portal', this)">
-            <i class="fas fa-user-shield"></i>
-            <span>Portal</span>
+        <div class="nav-item" onclick="switchScreen('helpdesk', this)">
+            <i class="fas fa-tools"></i><span>Help</span>
         </div>
-        <div class="nav-item" onclick="switchScreen('location', this)">
-            <i class="fas fa-map-marked-alt"></i>
-            <span>Map</span>
+        <div class="nav-item" onclick="switchScreen('archive', this)">
+            <i class="fas fa-history"></i><span>Archive</span>
+        </div>
+        <div class="nav-item" onclick="switchScreen('gallery', this)">
+            <i class="fas fa-images"></i><span>Gallery</span>
         </div>
     </div>
 
-    <a href="https://wa.me/919876543210" class="fab">
-        <i class="fab fa-whatsapp" style="font-size: 2rem;"></i>
-    </a>
-
     <script>
+        // Update Time Function
+        function updateTime() {
+            const now = new Date();
+            const options = { weekday: 'long', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+            document.getElementById('date-time').innerText = now.toLocaleString('en-US', options);
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // Screen Navigation
         function switchScreen(screenId, element) {
-            // Hide all screens
-            document.querySelectorAll('.app-screen').forEach(screen => {
-                screen.classList.remove('active');
-            });
-            // Show selected screen
+            document.querySelectorAll('.app-screen').forEach(s => s.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
 
-            // Update Nav UI
-            if(element) {
-                document.querySelectorAll('.nav-item').forEach(item => {
-                    item.classList.remove('active');
-                });
+            if(element && element.classList.contains('nav-item')) {
+                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
                 element.classList.add('active');
             }
-            
-            // Scroll to top
             window.scrollTo(0,0);
         }
     </script>
-
 </body>
 </html>
