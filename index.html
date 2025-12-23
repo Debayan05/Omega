@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Omega Apartment | Resident App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --accent: #d4af37;
+            --bg-light: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-sub: #64748b;
+            --nav-bg: #ffffff;
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body { 
+            background-color: var(--bg-light); 
+            color: var(--text-main);
+            padding-bottom: 80px; /* Space for bottom nav */
+        }
+
+        /* --- APP HEADER --- */
+        .app-header {
+            background: var(--primary);
+            padding: 1.5rem 1rem;
+            color: white;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .app-header h1 { font-size: 1.2rem; letter-spacing: 1px; color: var(--accent); }
+
+        /* --- SCREEN MANAGEMENT --- */
+        .app-screen {
+            display: none;
+            padding: 20px 15px;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .app-screen.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- UI COMPONENTS --- */
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .section-title { font-size: 1.3rem; margin-bottom: 15px; color: var(--primary); font-weight: 700; }
+
+        /* --- BOTTOM NAVIGATION --- */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid #e2e8f0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-sub);
+            font-size: 0.7rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .nav-item i { font-size: 1.4rem; margin-bottom: 4px; }
+
+        .nav-item.active { color: var(--secondary-accent, #1e3a8a); }
+        .nav-item.active i { color: var(--accent); }
+
+        /* --- SPECIFIC APP VIEWS --- */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .action-btn {
+            background: var(--primary);
+            color: white;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .contact-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .call-icon {
+            background: #dcfce7;
+            color: #166534;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Floating Complaint Button */
+        .fab {
+            position: fixed;
+            bottom: 85px;
+            right: 20px;
+            background: #25D366;
+            color: white;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+            z-index: 99;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-header">
+        <h1>OMEGA APARTMENT</h1>
+        <p style="font-size: 0.8rem; opacity: 0.8;">Dum Dum, Kolkata</p>
+    </div>
+
+    <div id="home" class="app-screen active">
+        <div class="card" style="background: linear-gradient(135deg, #0f172a, #1e3a8a); color: white;">
+            <h3>Welcome, Resident</h3>
+            <p style="font-size: 0.8rem; opacity: 0.9;">Building Plan Sanctioned: 1994</p>
+            <div style="margin-top: 15px; background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px;">
+                <small>Notice Board:</small>
+                <marquee scrollamount="3">Water tank cleaning scheduled for next Sunday.</marquee>
+            </div>
+        </div>
+
+        <h2 class="section-title">Quick Services</h2>
+        <div class="quick-actions">
+            <div class="action-btn" onclick="switchScreen('portal')"><i class="fas fa-file-invoice-dollar"></i><br>Maintenance</div>
+            <div class="action-btn" onclick="switchScreen('contacts')"><i class="fas fa-tools"></i><br>Repair Desk</div>
+            <div class="action-btn" onclick="switchScreen('portal')"><i class="fas fa-folder-open"></i><br>Archives</div>
+            <div class="action-btn" onclick="switchScreen('location')"><i class="fas fa-map-marker-alt"></i><br>Location</div>
+        </div>
+    </div>
+
+    <div id="contacts" class="app-screen">
+        <h2 class="section-title">Emergency & Maintenance</h2>
+        <div class="card">
+            <h4>Internal Staff</h4>
+            <div class="contact-row">
+                <div><strong>Security</strong><br><small>Susanta Dutta</small></div>
+                <a href="tel:7449703179" class="call-icon"><i class="fas fa-phone"></i></a>
+            </div>
+            <div class="contact-row">
+                <div><strong>Plumbing</strong><br><small>Ranjit Pal</small></div>
+                <a href="tel:9874920151" class="call-icon"><i class="fas fa-phone"></i></a>
+            </div>
+            <div class="contact-row">
+                <div><strong>Lift Service</strong><br><small>Goutam Paul</small></div>
+                <a href="tel:9874311399" class="call-icon"><i class="fas fa-phone"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div id="portal" class="app-screen">
+        <h2 class="section-title">Resident Portal</h2>
+        <div class="card">
+            <h4 style="margin-bottom:10px;"><i class="fas fa-file-excel" style="color: green;"></i> Finance Tracker</h4>
+            <p style="font-size: 0.9rem; color: var(--text-sub);">View live maintenance payment status.</p>
+            <a href="#" class="action-btn" style="display: block; margin-top: 10px; background: #059669;">Open Google Sheets</a>
+        </div>
+        <div class="card">
+            <h4><i class="fas fa-link"></i> Quick Links</h4>
+            <div class="contact-row" onclick="window.open('https://holdingtax.co.in/')">
+                <span>Property Tax Online</span>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        </div>
+    </div>
+
+    <div id="location" class="app-screen">
+        <h2 class="section-title">Find Us</h2>
+        <div class="card">
+            <p style="margin-bottom: 10px;">66, Dum Dum Road, Kolkata 74</p>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3683.433465714088!2d88.4194!3d22.6186!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjLCsDM3JzA3LjAiTiA4OMKwMjUnMDkuOCJF!5e0!3m2!1sen!2sin!4v1639038472834!5m2!1sen!2sin" width="100%" height="250" style="border:0; border-radius: 12px;"></iframe>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <div class="nav-item active" onclick="switchScreen('home', this)">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </div>
+        <div class="nav-item" onclick="switchScreen('contacts', this)">
+            <i class="fas fa-phone-alt"></i>
+            <span>Contacts</span>
+        </div>
+        <div class="nav-item" onclick="switchScreen('portal', this)">
+            <i class="fas fa-user-shield"></i>
+            <span>Portal</span>
+        </div>
+        <div class="nav-item" onclick="switchScreen('location', this)">
+            <i class="fas fa-map-marked-alt"></i>
+            <span>Map</span>
+        </div>
+    </div>
+
+    <a href="https://wa.me/919876543210" class="fab">
+        <i class="fab fa-whatsapp" style="font-size: 2rem;"></i>
+    </a>
+
+    <script>
+        function switchScreen(screenId, element) {
+            // Hide all screens
+            document.querySelectorAll('.app-screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            // Show selected screen
+            document.getElementById(screenId).classList.add('active');
+
+            // Update Nav UI
+            if(element) {
+                document.querySelectorAll('.nav-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                element.classList.add('active');
+            }
+            
+            // Scroll to top
+            window.scrollTo(0,0);
+        }
+    </script>
+
+</body>
+</html>
