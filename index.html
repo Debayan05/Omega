@@ -237,6 +237,199 @@ body.senior .more-action{
   background:#25D366;   /* WhatsApp Green */
   color:#fff;
 }
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:999;
+}
+
+.modal-card{
+  background:#fff;
+  width:90%;
+  max-width:360px;
+  padding:20px;
+  border-radius:16px;
+  text-align:center;
+  box-shadow:0 12px 30px rgba(0,0,0,.25);
+}
+
+.modal-card h3{
+  margin-bottom:6px;
+}
+
+.modal-card p{
+  font-size:.9rem;
+  color:#555;
+}
+
+.password-box{
+  position:relative;
+}
+
+.toggle-pass{
+  position:absolute;
+  right:12px;
+  top:50%;
+  transform:translateY(-50%);
+  cursor:pointer;
+  font-size:1.1rem;
+}
+
+.modal-input{
+  width:100%;
+  padding:12px;
+  border-radius:10px;
+  border:1px solid #ccc;
+  font-size:1rem;
+  margin-top:12px;
+}
+
+.modal-actions{
+  display:flex;
+  gap:10px;
+  margin-top:15px;
+}
+
+.btn{
+  flex:1;
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.btn.primary{
+  background:#0a7d3c;
+  color:#fff;
+}
+
+.btn.secondary{
+  background:#eee;
+}
+
+.error-text{
+  color:red;
+  font-size:.85rem;
+  min-height:18px;
+  margin-top:8px;
+}
+
+.maintenance-section{
+  margin-top:14px;
+  padding-top:10px;
+  border-top:1px solid #eee;
+  text-align:left;
+}
+
+.maintenance-section h4{
+  margin-bottom:6px;
+  font-size:0.95rem;
+}
+
+.bank-details p{
+  font-size:0.85rem;
+  margin:2px 0;
+}
+
+.small-text{
+  font-size:0.85rem;
+  color:#555;
+}
+
+.link-btn{
+  display:inline-block;
+  margin-top:6px;
+  font-size:0.85rem;
+  color:#0a7d3c;
+  text-decoration:underline;
+}
+
+.modern-maintenance{
+  padding:0;
+}
+
+.modal-header{
+  position:relative;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:16px 18px;
+  border-bottom:1px solid #eee;
+}
+
+.close-x{
+  position:absolute;
+  right:18px;
+  font-size:1.2rem;
+  cursor:pointer;
+  color:#666;
+}
+
+.pay-card{
+  margin:14px;
+  padding:14px;
+  border-radius:14px;
+  background:#f9f9f9;
+}
+
+.pay-card.highlight{
+  background:#eaf7ef;
+}
+
+.pay-title{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  font-weight:600;
+  margin-bottom:10px;
+  text-align:center;
+}
+
+
+.bank-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px 12px;
+  font-size:0.85rem;
+}
+
+.bank-grid div{
+  display:flex;
+  flex-direction:column;
+}
+
+.bank-grid strong{
+  font-size:0.7rem;
+  color:#777;
+}
+
+.bank-grid span{
+  font-weight:500;
+}
+
+.office-box div{
+  font-size:0.85rem;
+  margin:4px 0;
+}
+
+.mini-link{
+  display:inline-block;
+  margin-top:8px;
+  font-size:0.8rem;
+  color:#0a7d3c;
+}
+
+.btn.full{
+  width:100%;
+}
+
+
 </style>
 </head>
 
@@ -299,7 +492,7 @@ body.senior .more-action{
     <div class="tile" onclick="show('notices','n-notices')"><i class="fas fa-bullhorn"></i><span><br>Notices</span></div>
     <div class="tile" onclick="show('help','n-help')"><i class="fas fa-headset"></i><span><br>Help</span></div>
     <div class="tile" onclick="show('gallery','n-gallery')"><i class="fas fa-images"></i><span><br>Photos</span></div>
-    <div class="tile" onclick="window.open('https://docs.google.com/spreadsheets/d/16NPWEmV_XtQkTtBJuC-XLTXwsURcHC5dch1R1_j9tAM/edit?usp=sharing')"><i class="fas fa-receipt"></i><span><br>Maintenance</span></div>
+    <div class="tile" onclick="openMaintenanceModal()"><i class="fas fa-receipt"></i><span><br>Maintenance</span></div>
   </div>
   
   <!-- Amenities -->
@@ -519,9 +712,8 @@ body.senior .more-action{
     <a class="more-action" href="https://drive.google.com/drive/folders/12FWAXVk6vmijIfHqYtygwr1YfosErHdn?usp=sharing" target="_blank">
       <i class="fas fa-folder-open"></i> Documents
     </a>
-
-    <a class="more-action" href="https://drive.google.com/drive/folders/1TvW7tEQb9BBIHtZtwPBXA2SpFVBtW5DO?usp=sharing" target="_blank">
-      <i class="fas fa-box-archive"></i> Archives
+    <a class="more-action" href="javascript:void(0)" onclick="openAdminModal()">
+    <i class="fas fa-folder-open"></i> Archives
     </a>
   </div>
 
@@ -595,7 +787,7 @@ body.senior .more-action{
 ">
   © 1994–2025 Omega Apartment. All rights reserved.<br>
   
-  Designed &amp; maintained by <strong>Debayan Ganguly</strong><br>
+  Designed &amp; maintained by <strong>Debayan Ganguly</strong>
   <a href="https://raw.githubusercontent.com/Debayan05/Omega/master/Omega_Apartment_Privacy_Policy.pdf"
    target="_blank" rel="noopener">
   Download Privacy Policy
@@ -680,6 +872,88 @@ body.senior .more-action{
   </div>
 </div>
 
+<!-- Admin Access Modal -->
+<div id="adminModal" class="modal">
+  <div class="modal-card">
+    <h3>Restricted Access</h3>
+    <p>Available only for committee admins.</p>
+
+    <div class="password-box">
+      <input
+        type="password"
+        id="adminPassword"
+        placeholder="Enter admin password"
+        class="modal-input"
+      />
+      <span class="toggle-pass" onclick="togglePassword()">👁️</span>
+    </div>
+
+    <div id="adminError" class="error-text"></div>
+
+    <div class="modal-actions">
+      <button class="btn secondary" onclick="closeAdminModal()">Cancel</button>
+      <button class="btn primary" onclick="verifyAdmin()">Enter</button>
+    </div>
+  </div>
+</div>
+
+<!-- Maintenance Modal (Modern UI) -->
+<div id="maintenanceModal" class="modal">
+  <div class="modal-card modern-maintenance">
+
+    <div class="modal-header">
+      <h3>Maintenance Payment</h3>
+      <span class="close-x" onclick="closeMaintenanceModal()">✕</span>
+    </div>
+
+    <!-- Option 1 -->
+    <div class="pay-card">
+      <div class="pay-title">
+        <i class="fas fa-university"></i>
+        <span>Bank Transfer / UPI</span>
+      </div>
+
+      <div class="bank-grid">
+        <div><strong>Bank</strong><span>Bandhan Bank, Nagerbazar Branch</span></div>
+        <div><strong>Joint Holders</strong><span>Sujit Roy, Partha Gupta, T.K. Baidya</span></div>
+        <div><strong>A/C No</strong><span>50190023897292</span></div>
+        <div><strong>IFSC</strong><span>BDBL0001129</span></div>
+      </div>
+
+      <a class="mini-link" href="https://youtu.be/AI8A9uKM5w0" target="_blank">
+        How to pay via UPI →
+      </a>
+    </div>
+
+    <!-- Option 2 -->
+    <div class="pay-card">
+      <div class="pay-title">
+        <i class="fas fa-building"></i>
+        <span>Pay at Committee Office</span>
+      </div>
+
+      <div class="office-box">
+        <div>📍 6th Floor Terrace</div>
+        <div>🕒 10:30 – 11:30 AM</div>
+        <div>📅 First Sunday of every month</div>
+      </div>
+    </div>
+
+    <!-- Option 3 -->
+    <div class="pay-card highlight">
+      <div class="pay-title">
+        <i class="fas fa-file-invoice"></i>
+        <span>Maintenance Status</span>
+      </div>
+
+      <button class="btn primary full" onclick="openMaintenanceSheet()">
+        Check Status
+      </button>
+    </div>
+
+  </div>
+</div>
+
 <script>
 function show(id,nav){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -714,6 +988,74 @@ function callEmergency(){
     document.body.classList.add('senior');
   }
 })();
+
+//Admin functionality card
+const ADMIN_PASSWORD = "omega123"; // CHANGE THIS
+  const MAX_ATTEMPTS = 3;
+
+  let attempts = 0;
+
+  function openAdminModal(){
+    if(sessionStorage.getItem("adminUnlocked") === "true"){
+      openDocuments();
+      return;
+    }
+    document.getElementById("adminModal").style.display = "flex";
+    document.getElementById("adminPassword").value = "";
+    document.getElementById("adminError").innerText = "";
+  }
+
+  function closeAdminModal(){
+    document.getElementById("adminModal").style.display = "none";
+  }
+
+  function togglePassword(){
+    const input = document.getElementById("adminPassword");
+    input.type = input.type === "password" ? "text" : "password";
+  }
+
+  function verifyAdmin(){
+    const entered = document.getElementById("adminPassword").value;
+
+    if(attempts >= MAX_ATTEMPTS){
+      document.getElementById("adminError").innerText =
+        "Too many attempts. Try again later.";
+      return;
+    }
+
+    if(entered === ADMIN_PASSWORD){
+      sessionStorage.setItem("adminUnlocked", "true");
+      closeAdminModal();
+      openDocuments();
+    }else{
+      attempts++;
+      document.getElementById("adminError").innerText =
+        `Incorrect password (${MAX_ATTEMPTS - attempts} attempts left)`;
+    }
+  }
+
+  function openDocuments(){
+    window.open(
+      "https://drive.google.com/drive/folders/12FWAXVk6vmijIfHqYtygwr1YfosErHdn?usp=sharing",
+      "_blank"
+    );
+  }
+  
+  function openMaintenanceModal(){
+    document.getElementById("maintenanceModal").style.display = "flex";
+  }
+
+  function closeMaintenanceModal(){
+    document.getElementById("maintenanceModal").style.display = "none";
+  }
+
+  function openMaintenanceSheet(){
+    window.open(
+      "https://docs.google.com/spreadsheets/d/16NPWEmV_XtQkTtBJuC-XLTXwsURcHC5dch1R1_j9tAM/edit?usp=sharing",
+      "_blank"
+    );
+  }
+
 </script>
 
 </body>
